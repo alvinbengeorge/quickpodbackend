@@ -49,6 +49,7 @@ PODCAST SCHEMA
             coverPhoto: String
             date: Date,
             views: Number,
+            parent: String
         }
     ]
 }
@@ -59,6 +60,24 @@ export async function createPodcast(podcast) {
     podcast.listeners = JSON.stringify(podcast.listeners)
     const result = await podcasts.insertOne(podcast);
     return result;
+}
+
+export async function searchPodcast(name) {
+    const result = await podcasts.find({ title: { $regex: name, $options: "i" } }).toArray();
+    return result
+}
+
+export async function getPodcast(id) {
+    const result = await podcasts.findOne({ _id: id });
+    return result;    
+}
+
+export async function addEpisodes(episode, id) {
+    const result = await podcasts.findOne({ _id: id });
+    result.episodes = JSON.parse(result.episodes);
+    result.episodes.push(episode);
+    result.episodes = JSON.stringify(result.episodes);
+    return await podcasts.updateOne({ _id: id }, { $set: { episodes: result.episodes } });
 }
 
 

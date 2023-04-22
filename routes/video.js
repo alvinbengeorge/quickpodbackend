@@ -1,7 +1,6 @@
 import { Router } from "express";
 import fs from "fs";
 
-
 const router = Router();
 
 const HTML = `
@@ -55,7 +54,6 @@ router.get("/video/:id", async function (req, res) {
     const videoStream = fs.createReadStream(videoPath, { start, end });
     videoStream.pipe(res);
 });
-
 
 
 export default router;

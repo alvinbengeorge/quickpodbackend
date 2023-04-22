@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 
-videos/
-assets/
+# videos/
+# assets/

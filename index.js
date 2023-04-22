@@ -3,13 +3,17 @@ import video from "./routes/video.js";
 import user from "./routes/user.js";
 import assets from "./routes/assets.js"
 import dotenv from "dotenv";
+import fileUpload from "express-fileupload";
+import { connect } from "./utilities/database.js";
 
 const app = express();
 dotenv.config();
-app.use(express.json())
+app.use(express.json());
+app.use(fileUpload())
 app.use(video);
 app.use(user);
 app.use(assets);
+connect();
 
 app.get("/", async (req, res) => {
     res.send("Hello World");
