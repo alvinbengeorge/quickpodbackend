@@ -5,5 +5,7 @@ export async function authenticateUser (req, res) {
     const result = await authenticate(user);
     if (!result) {
         throw new Error("Username or password is incorrect");
+    } else {
+        return result;
     }
 }

@@ -16,7 +16,10 @@ export async function connect() {
     console.log("Connected to MongoDB");
 }
 
-export async function createUser(user) {
+export async function createUser(user, avatar) {
+    user['avatar'] = avatar;
+    user['favourite'] = '[]';
+    user['recent'] = '[]';
     const exists = await users.findOne({ username: user.username });
     if (exists) {
         throw new Error("User already exists");
@@ -56,6 +59,7 @@ PODCAST SCHEMA
 */
 
 export async function createPodcast(podcast) {
+    podcast['podcastCreated'] = Math.round((new Date()).getTime()/1000);
     podcast.episodes = JSON.stringify(podcast.episodes)
     podcast.listeners = JSON.stringify(podcast.listeners)
     const result = await podcasts.insertOne(podcast);
@@ -70,6 +74,16 @@ export async function searchPodcast(name) {
 export async function getPodcast(id) {
     const result = await podcasts.findOne({ _id: id });
     return result;    
+}
+
+export async function getCreatorPostcast(username) {
+    const result = await podcasts.find({ creator: username }).toArray();
+    return result;
+}
+
+export async function getAllPodcast() {
+    const result = await podcasts.find();
+    return result;
 }
 
 export async function addEpisodes(episode, id) {
