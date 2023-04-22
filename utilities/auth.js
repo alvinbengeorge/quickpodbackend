@@ -1,4 +1,4 @@
-import { authenticate } from "./database";
+import { authenticate } from "./database.js";
 
 export async function authenticateUser (req, res) {
     const user = req.body;

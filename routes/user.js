@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { authenticateUser, createUser } from "../utilities/auth"
-import { validateLogin, validateRegister } from "../utilities/schemas";
+import { authenticateUser } from "../utilities/auth.js"
+import { createUser } from "../utilities/database.js";
+import { validateLogin, validateRegister } from "../utilities/schemas.js";
 
 const router = Router();
 

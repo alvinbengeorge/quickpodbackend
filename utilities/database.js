@@ -1,4 +1,7 @@
 import { MongoClient } from 'mongodb';
+import dotenv from "dotenv";
+
+dotenv.config()
 
 const client = new MongoClient(process.env.mongouri, {
     useNewUrlParser: true,
@@ -24,4 +27,5 @@ export async function authenticate(user) {
     const result = await users.findOne({ username: user.username, password: user.password });
     return result;
 }
+
 
