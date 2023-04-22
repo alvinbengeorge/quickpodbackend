@@ -10,6 +10,8 @@ const registerSchema = yup.object().shape({
     password: yup.string().required('Password is required'),
     email: yup.string().email('Email is invalid').required('Email is required'),
     creator: yup.boolean().required('Creator is required'),
+    pfp: yup.string(),
+
 });
 
 export const validateLogin = async (req) => {

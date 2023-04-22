@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 import dotenv from "dotenv";
 
+
 dotenv.config()
 
 const client = new MongoClient(process.env.mongouri, {
@@ -8,6 +9,7 @@ const client = new MongoClient(process.env.mongouri, {
     useUnifiedTopology: true,
 });
 export const users = client.db("quickpod").collection("users");
+export const podcasts = client.db("quickpod").collection("podcasts");
 
 export async function connect() {
     await client.connect();
@@ -27,5 +29,37 @@ export async function authenticate(user) {
     const result = await users.findOne({ username: user.username, password: user.password });
     return result;
 }
+
+/*
+PODCAST SCHEMA
+{
+    _id: ObjectId,
+    title: String,
+    description: String,
+    coverPhoto: String,
+    creator: String,
+    podcastCreated: Date,
+    listeners: [String],
+    episodes: [
+        {
+            _id: ObjectId,
+            title: String,
+            description: String,
+            duration: Number,
+            coverPhoto: String
+            date: Date,
+            views: Number,
+        }
+    ]
+}
+*/
+
+export async function createPodcast(podcast) {
+    podcast.episodes = JSON.stringify(podcast.episodes)
+    podcast.listeners = JSON.stringify(podcast.listeners)
+    const result = await podcasts.insertOne(podcast);
+    return result;
+}
+
 
 
