@@ -21,6 +21,14 @@ const addPodcastSchema = yup.object().shape({
     password: yup.string().required("Password is required"),
 });
 
+const addEpisodeSchema = yup.object().shape({
+    title: yup.string().required("Title is required"),
+    description: yup.string().required("Description is required"),
+    parent: yup.string().required("Podcast ID is required"),
+    username: yup.string().required("Username is required"),
+    password: yup.string().required("Password is required"),
+})
+
 export const validateLogin = async (req) => {
     await loginSchema.validate(req.body);
 };

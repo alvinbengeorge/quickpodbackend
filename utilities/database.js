@@ -48,9 +48,8 @@ PODCAST SCHEMA
             _id: ObjectId,
             title: String,
             description: String,
-            duration: Number,
-            coverPhoto: String
-            date: Date,
+            episode: String
+            time: int,
             views: Number,
             parent: String
         }
@@ -92,6 +91,12 @@ export async function addEpisodes(episode, id) {
     result.episodes.push(episode);
     result.episodes = JSON.stringify(result.episodes);
     return await podcasts.updateOne({ _id: id }, { $set: { episodes: result.episodes } });
+}
+
+export async function getEpisode(episode, id) {
+    const result = await podcasts.findOne({ _id: id });
+    result.episodes = JSON.parse(result.episodes);
+    return result.episodes[episode];
 }
 
 
