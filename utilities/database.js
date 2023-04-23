@@ -49,7 +49,7 @@ PODCAST SCHEMA
             title: String,
             description: String,
             episode: String
-            time: int,
+            time: Number,
             views: Number,
             parent: String
         }
