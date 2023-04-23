@@ -17,7 +17,11 @@ app.use(user);
 app.use(assets);
 app.use(podcast)
 app.use(episode);
-connect();
+try{
+    connect();
+} catch (err) {
+    console.log(err);
+}
 
 app.get("/", async (req, res) => {
     res.send("Hello World");

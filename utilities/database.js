@@ -81,7 +81,7 @@ export async function getCreatorPostcasts(username) {
 }
 
 export async function getAllPodcast() {
-    const result = await podcasts.find();
+    const result = await podcasts.find({}).toArray();;
     return result;
 }
 
