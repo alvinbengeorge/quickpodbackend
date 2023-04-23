@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allEpisodes, getEpisode } from "../utilities/database";
+import { allEpisodes, getEpisode } from "../utilities/database.js";
 
 const router = Router();
 
