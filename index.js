@@ -1,7 +1,9 @@
 import express from "express";
 import video from "./routes/video.js";
 import user from "./routes/user.js";
+import podcast from "./routes/podcast.js";
 import assets from "./routes/assets.js"
+import episode from "./routes/episode.js";
 import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import { connect } from "./utilities/database.js";
@@ -13,6 +15,8 @@ app.use(fileUpload())
 app.use(video);
 app.use(user);
 app.use(assets);
+app.use(podcast)
+app.use(episode);
 connect();
 
 app.get("/", async (req, res) => {
@@ -23,4 +27,4 @@ app.listen(8080, () => {
     console.log("Listening on port 8080");
 });
 
-export { app };
+export default app;

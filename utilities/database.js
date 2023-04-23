@@ -65,7 +65,7 @@ export async function createPodcast(podcast) {
     return result;
 }
 
-export async function searchPodcast(name) {
+export async function sPodcast(name) {
     const result = await podcasts.find({ title: { $regex: name, $options: "i" } }).toArray();
     return result
 }
@@ -75,7 +75,7 @@ export async function getPodcast(id) {
     return result;    
 }
 
-export async function getCreatorPostcast(username) {
+export async function getCreatorPostcasts(username) {
     const result = await podcasts.find({ creator: username }).toArray();
     return result;
 }
@@ -91,6 +91,12 @@ export async function addEpisodes(episode, id) {
     result.episodes.push(episode);
     result.episodes = JSON.stringify(result.episodes);
     return await podcasts.updateOne({ _id: id }, { $set: { episodes: result.episodes } });
+}
+
+export async function allEpisodes(id) {
+    const result = await podcasts.findOne({ _id: id});
+    result.episodes = JSON.parse(result.episodes);
+    return result.episodes;
 }
 
 export async function getEpisode(episode, id) {
